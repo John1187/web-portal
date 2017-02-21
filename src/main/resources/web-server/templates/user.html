@@ -1,0 +1,78 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+<div class="container">
+  <h2>User Service</h2>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a id="AccTab" data-toggle="tab" href="#home">Users</a></li>
+    <li><a id="AccSearchTab" data-toggle="tab" href="#menu1">User # Search</a></li>
+    <li><a id="NameSearchTab" data-toggle="tab" href="#menu2">Name Search</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <!-- <h3>Search</h3> -->
+      <div style="height: 1cm">&nbsp;</div>
+      <a id="SearchAccClick" href="#">Service UnAvailable</a>
+      <div id="SearchDiv"></div> 
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <!-- <h3>Fetch User #1</h3> -->
+      <div style="height: 1cm">&nbsp;</div>
+	  <a id="AccNumClick" href="#">Fetch user details for 1</a>
+	  <div id="AccNumDiv"></div> 
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <!-- <h3>Fetch by Name</h3> -->
+      <div style="height: 1cm">&nbsp;</div>
+      <a id="OwnerClick" href="#">Service UnAvailable</a>
+       <div id="OwnerDiv"></div> 
+    </div>
+  </div></div>
+<div th:replace="footer :: copy"></div>
+</body>
+<script type="text/javascript">
+
+$('#AccNumClick').click(function(e) {
+	
+	  $('#AccNumDiv').html(" ");
+	  // prevent the default action when a nav button link is clicked
+	  e.preventDefault();
+
+	  // ajax query to retrieve the HTML view without refreshing the page.
+	  $.ajax({
+	    type: 'get',
+	    url: 'http://localhost:8080/v1/user/1',
+	    success: function (html) {
+	      // success callback -- replace the div's innerHTML with
+	      // the response from the server.
+	      $('#AccNumDiv').html(html);
+	    }
+	  });
+});
+
+$('#AccTab').click(function(e) {
+
+	  $('#AccNumDiv').html(" ");
+      $('#OwnerDiv').html(" ");
+
+});
+
+$('#AccSearchTab').click(function(e) {
+
+	  $('#SearchDiv').html(" ");
+      $('#OwnerDiv').html(" ");
+});
+
+$('#NameSearchTab').click(function(e) {
+
+	 $('#SearchDiv').html(" ");
+	 $('#AccNumDiv').html(" ");
+});
+
+</script>
+</html>
